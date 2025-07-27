@@ -1,0 +1,2556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MG Classes - Premium Education</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7B2CBF;
+            --primary-light: #9D4EDD;
+            --primary-dark: #5A189A;
+            --secondary: #FF9E00;
+            --secondary-dark: #FF7B00;
+            --accent: #00B4D8;
+            --light: #F8F9FA;
+            --dark: #212529;
+            --gray: #6C757D;
+            --success: #38B000;
+            --gradient: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            background-color: #F8F9FA;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        /* Particle Animation Background */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, #10002B, #240046);
+        }
+        
+        /* Unique Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #10002B, #240046);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 1s ease-in-out 4s forwards;
+        }
+        
+        .loader-content {
+            text-align: center;
+            position: relative;
+            perspective: 1000px;
+        }
+        
+        .logo-animation {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 2rem;
+            position: relative;
+            animation: floatRotate 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(123, 44, 191, 0.6));
+        }
+        
+        .logo-animation svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .loader-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #9D4EDD, #00B4D8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            position: relative;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+        }
+        
+        .loader-subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease-in-out 1s forwards;
+            margin-bottom: 3rem;
+        }
+        
+        .progress-container {
+            width: 300px;
+            height: 8px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in-out 1.5s forwards;
+            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
+        }
+        
+        .progress-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            animation: loadProgress 2s cubic-bezier(0.65, 0, 0.35, 1) 1.8s forwards;
+            box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
+            border-radius: 10px;
+        }
+        
+        .loader-dots {
+            display: flex;
+            margin-top: 3rem;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in-out 2.5s forwards;
+        }
+        
+        .dot {
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            margin: 0 12px;
+            animation: pulse 1.5s infinite ease-in-out;
+            box-shadow: 0 0 15px rgba(123, 44, 191, 0.5);
+        }
+        
+        .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+        
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes floatRotate {
+            0%, 100% { 
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            25% { 
+                transform: translateY(-20px) rotate(5deg) scale(1.05);
+            }
+            50% { 
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            75% { 
+                transform: translateY(-15px) rotate(-5deg) scale(1.03);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes loadProgress {
+            to {
+                width: 100%;
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1); 
+                opacity: 0.8; 
+            }
+            50% { 
+                transform: scale(1.3); 
+                opacity: 1; 
+            }
+        }
+        
+        @keyframes fadeOut {
+            to { 
+                opacity: 0; 
+                visibility: hidden; 
+            }
+        }
+        
+        /* Header with Glass Morphism Effect */
+        header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: var(--dark);
+            padding: 1rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--primary);
+        }
+        
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .logo-main {
+            color: var(--primary);
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        
+        .logo-sub {
+            font-size: 0.7rem;
+            color: var(--gray);
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 2.5rem;
+            position: relative;
+        }
+        
+        nav ul li a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transition: width 0.3s ease;
+            border-radius: 3px;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-actions a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            padding: 0.7rem 2rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .login-btn {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .login-btn:hover {
+            background-color: rgba(123, 44, 191, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .signup-btn {
+            background: var(--gradient);
+            box-shadow: 0 5px 20px rgba(123, 44, 191, 0.3);
+        }
+        
+        .signup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(123, 44, 191, 0.4);
+        }
+        
+        .admin-btn {
+            background: linear-gradient(135deg, #212529, #343A40);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-left: 1.5rem;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            margin-right: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(123, 44, 191, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .user-avatar:hover {
+            transform: scale(1.1);
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .user-dropdown {
+            position: absolute;
+            top: 60px;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            width: 220px;
+            padding: 1rem 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 10;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .user-profile:hover .user-dropdown {
+            opacity: 1;
+            visibility: visible;
+            top: 50px;
+        }
+        
+        .user-dropdown a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            color: var(--dark);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+        
+        .user-dropdown a:hover {
+            background: rgba(123, 44, 191, 0.05);
+            color: var(--primary);
+            padding-left: 1.8rem;
+        }
+        
+        .user-dropdown a i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+            color: var(--primary);
+        }
+        
+        /* Auth Modal with Glass Effect */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .auth-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 2.5rem;
+            border-radius: 25px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: modalFadeIn 0.4s ease-out forwards;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        @keyframes modalFadeIn {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .auth-header h2 {
+            color: var(--primary);
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .auth-header p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .auth-tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--gray);
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+            position: relative;
+        }
+        
+        .auth-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .auth-form {
+            display: none;
+        }
+        
+        .auth-form.active {
+            display: block;
+        }
+        
+        .auth-form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .auth-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .auth-form-group input,
+        .auth-form-group select {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
+        }
+        
+        .auth-form-group input:focus,
+        .auth-form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(123, 44, 191, 0.2);
+            outline: none;
+        }
+        
+        .auth-form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        
+        .auth-form-remember {
+            display: flex;
+            align-items: center;
+        }
+        
+        .auth-form-remember input {
+            margin-right: 0.5rem;
+        }
+        
+        .auth-form-forgot {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-form-forgot:hover {
+            text-decoration: underline;
+        }
+        
+        .auth-form-submit {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 5px 20px rgba(123, 44, 191, 0.3);
+            margin-top: 1rem;
+        }
+        
+        .auth-form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(123, 44, 191, 0.4);
+        }
+        
+        .auth-form-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .auth-form-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .auth-form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .close-auth-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: #aaa;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-auth-modal:hover {
+            color: var(--dark);
+            transform: rotate(90deg);
+        }
+        
+        /* Admin Login Modal */
+        .admin-login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .admin-login-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 2.5rem;
+            border-radius: 25px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: modalFadeIn 0.4s ease-out forwards;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .admin-login-container h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        .admin-login-container input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
+        }
+        
+        .admin-login-container input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(123, 44, 191, 0.2);
+            outline: none;
+        }
+        
+        .admin-login-container button {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 5px 20px rgba(123, 44, 191, 0.3);
+        }
+        
+        .admin-login-container button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(123, 44, 191, 0.4);
+        }
+        
+        .close-admin-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            color: #aaa;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .close-admin-modal:hover {
+            color: var(--dark);
+            transform: rotate(90deg);
+        }
+        
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+            padding: 2rem 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .admin-header h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .admin-logout {
+            background: linear-gradient(135deg, var(--accent), #0096C7);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.8rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 180, 216, 0.3);
+        }
+        
+        .admin-logout:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 180, 216, 0.4);
+        }
+        
+        .admin-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .admin-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .admin-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+        
+        .admin-card i {
+            font-size: 2.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+        
+        .admin-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .admin-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        .admin-content {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .admin-content h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .admin-form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        .admin-form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        .admin-form-group input,
+        .admin-form-group textarea,
+        .admin-form-group select {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
+        }
+        
+        .admin-form-group input:focus,
+        .admin-form-group textarea:focus,
+        .admin-form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(123, 44, 191, 0.2);
+            outline: none;
+        }
+        
+        .admin-form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .admin-submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--gradient);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(123, 44, 191, 0.3);
+        }
+        
+        .admin-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(123, 44, 191, 0.4);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(123, 44, 191, 0.9), rgba(0, 180, 216, 0.8)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 8rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.1) 100%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 800;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .cta-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        .cta-btn {
+            background-color: white;
+            color: var(--primary);
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .cta-btn.secondary {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+            box-shadow: none;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .cta-btn.secondary:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        /* Subjects Section */
+        .subjects {
+            padding: 6rem 3rem;
+            background-color: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .subject-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        
+        .subject-card {
+            background-color: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+        }
+        
+        .subject-card-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+        
+        .subject-card:hover .subject-card-img {
+            transform: scale(1.05);
+        }
+        
+        .subject-card-content {
+            padding: 2rem;
+        }
+        
+        .subject-card h3 {
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .subject-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .subject-card .btn {
+            display: inline-block;
+            background: var(--gradient);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(123, 44, 191, 0.3);
+        }
+        
+        .subject-card .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(123, 44, 191, 0.4);
+        }
+        
+        /* Notes Section */
+        .notes {
+            padding: 6rem 3rem;
+            background-color: #f5f6fa;
+            position: relative;
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+            margin-top: -5rem;
+            z-index: 0;
+        }
+        
+        .notes-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .note-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .note-item:hover {
+            background-color: rgba(123, 44, 191, 0.02);
+        }
+        
+        .note-item:last-child {
+            border-bottom: none;
+        }
+        
+        .note-info h3 {
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .note-info p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        .note-price {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-right: 2rem;
+        }
+        
+        .note-actions {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .buy-btn {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(123, 44, 191, 0.3);
+        }
+        
+        .buy-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(123, 44, 191, 0.4);
+        }
+        
+        .watch-ads-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(255, 158, 0, 0.3);
+        }
+        
+        .watch-ads-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 158, 0, 0.4);
+        }
+        
+        /* Live Classes */
+        .live-classes {
+            padding: 8rem 3rem 6rem;
+            background-color: white;
+            position: relative;
+            z-index: 1;
+            margin-top: -5rem;
+        }
+        
+        .live-classes-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            overflow-x: auto;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .class-schedule {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .class-schedule thead {
+            background: var(--gradient);
+            color: white;
+        }
+        
+        .class-schedule th, .class-schedule td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .class-schedule th {
+            font-weight: 600;
+        }
+        
+        .class-schedule tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .class-schedule tr:hover {
+            background-color: rgba(123, 44, 191, 0.05);
+        }
+        
+        .join-btn {
+            background: linear-gradient(135deg, var(--accent), #0096C7);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(0, 180, 216, 0.3);
+        }
+        
+        .join-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 180, 216, 0.4);
+        }
+        
+        /* Review Section */
+        .review {
+            padding: 8rem 3rem 6rem;
+            background: linear-gradient(135deg, #10002B, #240046);
+            color: white;
+            position: relative;
+            clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+            margin-top: -5rem;
+        }
+        
+        .review-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .review-container h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            font-weight: 700;
+        }
+        
+        .review-form {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .review-form textarea {
+            width: 100%;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 15px;
+            resize: vertical;
+            min-height: 150px;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.05);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .review-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .review-form textarea::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+        
+        .review-form button {
+            background: var(--gradient);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 20px rgba(123, 44, 191, 0.3);
+        }
+        
+        .review-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(123, 44, 191, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #10002B, #240046);
+            color: white;
+            padding: 8rem 3rem 2rem;
+            position: relative;
+            margin-top: -5rem;
+            z-index: 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column h3 {
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary), var(--secondary-dark));
+            border-radius: 3px;
+        }
+        
+        .footer-column p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 1.2rem;
+        }
+        
+        .footer-column ul li a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+            padding-left: 8px;
+        }
+        
+        .footer-column ul li a i {
+            margin-right: 0.8rem;
+            color: var(--secondary);
+        }
+        
+        .contact-info p {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        .contact-info i {
+            margin-right: 1rem;
+            color: var(--secondary);
+            font-size: 1.2rem;
+            min-width: 20px;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+        }
+        
+        /* Floating Particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            box-shadow: 0 0 10px rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+            
+            nav ul li {
+                margin-left: 1.5rem;
+            }
+            
+            .hero {
+                padding: 6rem 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1.5rem;
+            }
+            
+            .logo {
+                margin-bottom: 1.5rem;
+            }
+            
+            nav {
+                margin-bottom: 1.5rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 1rem;
+            }
+            
+            .user-actions {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .user-actions a {
+                margin: 0.5rem;
+            }
+            
+            .hero {
+                padding: 5rem 1.5rem;
+                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .cta-btns {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .subject-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .notes, .live-classes, .review {
+                padding: 6rem 1.5rem 4rem;
+                clip-path: none;
+                margin-top: 0;
+            }
+            
+            .notes-container, .live-classes-container, .review-container {
+                padding: 2rem;
+            }
+            
+            .auth-container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .auth-tabs {
+                flex-direction: column;
+            }
+            
+            .auth-tab {
+                padding: 0.8rem;
+                text-align: center;
+                border-bottom: none;
+                border-left: 3px solid transparent;
+            }
+            
+            .auth-tab.active {
+                border-bottom: none;
+                border-left-color: var(--primary);
+            }
+            
+            .note-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .note-price {
+                margin: 1rem 0;
+            }
+            
+            .note-actions {
+                width: 100%;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .buy-btn, .watch-ads-btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .loader-logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .loader-title {
+                font-size: 2.5rem;
+            }
+            
+            .loader-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .user-dropdown {
+                width: 160px;
+                font-size: 0.8rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Particle Background -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Unique Loading Animation with Custom Logo -->
+    <div class="loader">
+        <div class="loader-content">
+            <div class="logo-animation">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="#7B2CBF" d="M100,0 C155.228,0 200,44.772 200,100 C200,155.228 155.228,200 100,200 C44.772,200 0,155.228 0,100 C0,44.772 44.772,0 100,0 Z" />
+                    <path fill="#9D4EDD" d="M100,20 C137.614,20 168.539,46.617 175.307,82.353 L145.098,82.353 C139.804,67.843 127.843,57.647 113.725,57.647 L86.275,57.647 C72.157,57.647 60.196,67.843 54.902,82.353 L24.693,82.353 C31.461,46.617 62.386,20 100,20 Z" />
+                    <path fill="#FFFFFF" d="M100,120 C111.046,120 120,111.046 120,100 C120,88.954 111.046,80 100,80 C88.954,80 80,88.954 80,100 C80,111.046 88.954,120 100,120 Z" />
+                    <path fill="#00B4D8" d="M145.098,117.647 L175.307,117.647 C168.539,153.383 137.614,180 100,180 C62.386,180 31.461,153.383 24.693,117.647 L54.902,117.647 C60.196,132.157 72.157,142.353 86.275,142.353 L113.725,142.353 C127.843,142.353 139.804,132.157 145.098,117.647 Z" />
+                </svg>
+            </div>
+            <h1 class="loader-title">MG Classes</h1>
+            <div class="loader-subtitle">Premium Education for 9-12 & BSc Students</div>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="loader-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div class="app-content" style="display: none;">
+        <!-- Header with Glass Morphism Effect -->
+        <header>
+            <a href="#home" class="logo">
+                <div class="logo-img">
+                    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="#7B2CBF" d="M100,0 C155.228,0 200,44.772 200,100 C200,155.228 155.228,200 100,200 C44.772,200 0,155.228 0,100 C0,44.772 44.772,0 100,0 Z" />
+                        <path fill="#9D4EDD" d="M100,20 C137.614,20 168.539,46.617 175.307,82.353 L145.098,82.353 C139.804,67.843 127.843,57.647 113.725,57.647 L86.275,57.647 C72.157,57.647 60.196,67.843 54.902,82.353 L24.693,82.353 C31.461,46.617 62.386,20 100,20 Z" />
+                        <path fill="#FFFFFF" d="M100,120 C111.046,120 120,111.046 120,100 C120,88.954 111.046,80 100,80 C88.954,80 80,88.954 80,100 C80,111.046 88.954,120 100,120 Z" />
+                        <path fill="#00B4D8" d="M145.098,117.647 L175.307,117.647 C168.539,153.383 137.614,180 100,180 C62.386,180 31.461,153.383 24.693,117.647 L54.902,117.647 C60.196,132.157 72.157,142.353 86.275,142.353 L113.725,142.353 C127.843,142.353 139.804,132.157 145.098,117.647 Z" />
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main">MG Classes</span>
+                    <span class="logo-sub">Premium Education</span>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#subjects">Subjects</a></li>
+                    <li><a href="#notes">Notes</a></li>
+                    <li><a href="#live-classes">Live Classes</a></li>
+                </ul>
+            </nav>
+            <div class="user-actions">
+                <a href="#" id="login-btn" class="login-btn">Login</a>
+                <a href="#" id="signup-btn" class="signup-btn">Sign Up</a>
+                <a href="#" id="admin-login-btn" class="admin-btn">Admin</a>
+                
+                <!-- User Profile (hidden by default) -->
+                <div class="user-profile" id="user-profile" style="display: none;">
+                    <div class="user-avatar" id="user-avatar">
+                        <span id="avatar-initials">U</span>
+                    </div>
+                    <span class="user-name" id="user-name">User</span>
+                    <div class="user-dropdown">
+                        <a href="#"><i class="fas fa-user"></i> My Profile</a>
+                        <a href="#"><i class="fas fa-book"></i> My Notes</a>
+                        <a href="#"><i class="fas fa-calendar"></i> My Classes</a>
+                        <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Student Login/Signup Modal with Glass Effect -->
+        <div class="auth-modal" id="auth-modal">
+            <div class="auth-container">
+                <span class="close-auth-modal" id="close-auth-modal">&times;</span>
+                <div class="auth-header">
+                    <h2 id="auth-modal-title">Welcome Back</h2>
+                    <p id="auth-modal-subtitle">Login to access your account</p>
+                </div>
+                
+                <div class="auth-tabs">
+                    <div class="auth-tab active" id="login-tab">Login</div>
+                    <div class="auth-tab" id="signup-tab">Sign Up</div>
+                </div>
+                
+                <!-- Login Form -->
+                <form class="auth-form active" id="login-form">
+                    <div class="auth-form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" placeholder="Enter your password" required>
+                    </div>
+                    <div class="auth-form-actions">
+                        <div class="auth-form-remember">
+                            <input type="checkbox" id="remember-me">
+                            <label for="remember-me">Remember me</label>
+                        </div>
+                        <a href="#" class="auth-form-forgot">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="auth-form-submit">Login</button>
+                    <div class="auth-form-footer">
+                        Don't have an account? <a href="#" id="switch-to-signup">Sign up</a>
+                    </div>
+                </form>
+                
+                <!-- Signup Form -->
+                <form class="auth-form" id="signup-form">
+                    <div class="auth-form-group">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label for="signup-phone">Phone Number</label>
+                        <input type="tel" id="signup-phone" placeholder="Enter your phone number" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label for="signup-class">Class/Grade</label>
+                        <select id="signup-class" required>
+                            <option value="">Select your class</option>
+                            <option value="9">Class 9</option>
+                            <option value="10">Class 10</option>
+                            <option value="11">Class 11</option>
+                            <option value="12">Class 12</option>
+                            <option value="bsc">BSc</option>
+                        </select>
+                    </div>
+                    <div class="auth-form-group">
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" placeholder="Create a password" required>
+                    </div>
+                    <div class="auth-form-group">
+                        <label for="signup-confirm-password">Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" placeholder="Confirm your password" required>
+                    </div>
+                    <button type="submit" class="auth-form-submit">Create Account</button>
+                    <div class="auth-form-footer">
+                        Already have an account? <a href="#" id="switch-to-login">Login</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Admin Login Modal -->
+        <div class="admin-login-modal" id="admin-login-modal">
+            <div class="admin-login-container">
+                <span class="close-admin-modal" id="close-admin-modal">&times;</span>
+                <h2>Admin Login</h2>
+                <input type="password" id="admin-password" placeholder="Enter Admin Password">
+                <button id="admin-login-submit">Login</button>
+            </div>
+        </div>
+
+        <!-- Admin Dashboard -->
+        <div class="admin-dashboard" id="admin-dashboard">
+            <div class="admin-header">
+                <h1>MG Classes - Admin Dashboard</h1>
+                <button class="admin-logout" id="admin-logout">Logout</button>
+            </div>
+            
+            <div class="admin-sections">
+                <div class="admin-card" onclick="showAdminSection('manage-notes')">
+                    <i class="fas fa-book"></i>
+                    <h3>Manage Notes</h3>
+                    <p>Upload, edit, and delete study notes</p>
+                </div>
+                <div class="admin-card" onclick="showAdminSection('manage-classes')">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <h3>Manage Live Classes</h3>
+                    <p>Schedule and manage live classes</p>
+                </div>
+                <div class="admin-card" onclick="showAdminSection('manage-videos')">
+                    <i class="fas fa-video"></i>
+                    <h3>Manage Videos</h3>
+                    <p>Upload and organize video lectures</p>
+                </div>
+                <div class="admin-card" onclick="showAdminSection('settings')">
+                    <i class="fas fa-cog"></i>
+                    <h3>Settings</h3>
+                    <p>Change password and app settings</p>
+                </div>
+            </div>
+            
+            <!-- Manage Notes Section -->
+            <div class="admin-content" id="manage-notes">
+                <h2>Manage Notes</h2>
+                <form id="notes-form">
+                    <div class="admin-form-group">
+                        <label for="note-title">Note Title</label>
+                        <input type="text" id="note-title" placeholder="Enter note title" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="note-subject">Subject</label>
+                        <select id="note-subject" required>
+                            <option value="">Select Subject</option>
+                            <option value="physics">Physics</option>
+                            <option value="chemistry">Chemistry</option>
+                            <option value="biology">Biology</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="note-class">Class</label>
+                        <select id="note-class" required>
+                            <option value="">Select Class</option>
+                            <option value="9">Class 9</option>
+                            <option value="10">Class 10</option>
+                            <option value="11">Class 11</option>
+                            <option value="12">Class 12</option>
+                            <option value="bsc">BSc</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="note-price">Price (₹)</label>
+                        <input type="number" id="note-price" value="200" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="note-file">Upload Note File</label>
+                        <input type="file" id="note-file" accept=".pdf,.doc,.docx" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="note-description">Description</label>
+                        <textarea id="note-description" placeholder="Enter note description" required></textarea>
+                    </div>
+                    <button type="submit" class="admin-submit-btn">Upload Note</button>
+                </form>
+            </div>
+            
+            <!-- Manage Live Classes Section -->
+            <div class="admin-content" id="manage-classes" style="display: none;">
+                <h2>Manage Live Classes</h2>
+                <form id="class-form">
+                    <div class="admin-form-group">
+                        <label for="class-subject">Subject</label>
+                        <select id="class-subject" required>
+                            <option value="">Select Subject</option>
+                            <option value="physics">Physics</option>
+                            <option value="chemistry">Chemistry</option>
+                            <option value="biology">Biology</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="class-teacher">Teacher</label>
+                        <select id="class-teacher" required>
+                            <option value="">Select Teacher</option>
+                            <option value="golu">Golu Sir (Physics)</option>
+                            <option value="mohit">Mohit Sir (Chemistry/Biology)</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="class-topic">Topic</label>
+                        <input type="text" id="class-topic" placeholder="Enter class topic" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="class-date">Date & Time</label>
+                        <input type="datetime-local" id="class-date" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="class-link">Meeting Link</label>
+                        <input type="url" id="class-link" placeholder="Enter Zoom/Google Meet link" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="class-description">Description</label>
+                        <textarea id="class-description" placeholder="Enter class description" required></textarea>
+                    </div>
+                    <button type="submit" class="admin-submit-btn">Schedule Class</button>
+                </form>
+            </div>
+            
+            <!-- Manage Videos Section -->
+            <div class="admin-content" id="manage-videos" style="display: none;">
+                <h2>Manage Video Lectures</h2>
+                <form id="video-form">
+                    <div class="admin-form-group">
+                        <label for="video-title">Video Title</label>
+                        <input type="text" id="video-title" placeholder="Enter video title" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="video-subject">Subject</label>
+                        <select id="video-subject" required>
+                            <option value="">Select Subject</option>
+                            <option value="physics">Physics</option>
+                            <option value="chemistry">Chemistry</option>
+                            <option value="biology">Biology</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="video-class">Class</label>
+                        <select id="video-class" required>
+                            <option value="">Select Class</option>
+                            <option value="9">Class 9</option>
+                            <option value="10">Class 10</option>
+                            <option value="11">Class 11</option>
+                            <option value="12">Class 12</option>
+                            <option value="bsc">BSc</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="video-file">Upload Video</label>
+                        <input type="file" id="video-file" accept="video/*" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="video-description">Description</label>
+                        <textarea id="video-description" placeholder="Enter video description" required></textarea>
+                    </div>
+                    <button type="submit" class="admin-submit-btn">Upload Video</button>
+                </form>
+            </div>
+            
+            <!-- Settings Section -->
+            <div class="admin-content" id="settings" style="display: none;">
+                <h2>Settings</h2>
+                <form id="settings-form">
+                    <div class="admin-form-group">
+                        <label for="current-password">Current Password</label>
+                        <input type="password" id="current-password" placeholder="Enter current password" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="new-password">New Password</label>
+                        <input type="password" id="new-password" placeholder="Enter new password" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="confirm-password">Confirm New Password</label>
+                        <input type="password" id="confirm-password" placeholder="Confirm new password" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="otp-mobile">OTP Mobile Number</label>
+                        <input type="text" id="otp-mobile" value="6387618629" readonly>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="default-price">Default Note Price (₹)</label>
+                        <input type="number" id="default-price" value="200" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="ads-required">Ads Required for Free Access</label>
+                        <input type="number" id="ads-required" value="10" required>
+                    </div>
+                    <button type="submit" class="admin-submit-btn">Save Changes</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Content (Student View) -->
+        <div id="student-view">
+            <!-- Hero Section with Polygon Clip -->
+            <section class="hero" id="home">
+                <div class="hero-content">
+                    <h1>Transform Your Learning Experience</h1>
+                    <p>Master Physics, Chemistry, and Biology with India's best educators - Mohit Sir and Golu Sir. Join thousands of successful students from classes 9-12 and BSc.</p>
+                    <div class="cta-btns">
+                        <a href="#live-classes" class="cta-btn">Join Live Class</a>
+                        <a href="#notes" class="cta-btn secondary">Explore Notes</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Subjects Section -->
+            <section class="subjects" id="subjects">
+                <div class="section-title">
+                    <h2>Our Expert Subjects</h2>
+                    <p>Learn from the finest educators with comprehensive coverage of all important topics</p>
+                </div>
+                <div class="subject-cards">
+                    <div class="subject-card">
+                        <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Physics" class="subject-card-img">
+                        <div class="subject-card-content">
+                            <h3>Physics</h3>
+                            <p>Master the fundamentals of physics with Golu Sir. Classes available for 9-12 and BSc students with interactive sessions and practical examples.</p>
+                            <a href="#" class="btn">View Classes</a>
+                        </div>
+                    </div>
+                    <div class="subject-card">
+                        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Chemistry" class="subject-card-img">
+                        <div class="subject-card-content">
+                            <h3>Chemistry</h3>
+                            <p>Learn chemistry concepts with Mohit Sir. Comprehensive coverage for 9-12 and BSc with detailed explanations and problem-solving techniques.</p>
+                            <a href="#" class="btn">View Classes</a>
+                        </div>
+                    </div>
+                    <div class="subject-card">
+                        <img src="https://images.unsplash.com/photo-1581093450021-4a7360e9a7f3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Biology" class="subject-card-img">
+                        <div class="subject-card-content">
+                            <h3>Biology</h3>
+                            <p>Explore the world of biology with Mohit Sir. Perfect for 9-12 and BSc students with in-depth coverage of concepts and diagrams.</p>
+                            <a href="#" class="btn">View Classes</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Notes Section with Polygon Clip -->
+            <section class="notes" id="notes">
+                <div class="section-title">
+                    <h2>Premium Study Notes</h2>
+                    <p>Comprehensive notes designed by our expert faculty to help you excel in exams</p>
+                </div>
+                <div class="notes-container">
+                    <div class="note-item">
+                        <div class="note-info">
+                            <h3>Class 11 Physics - Motion in Straight Line</h3>
+                            <p>Comprehensive notes with diagrams, solved examples, and practice problems</p>
+                        </div>
+                        <div class="note-price">₹200</div>
+                        <div class="note-actions">
+                            <button class="buy-btn">Buy Now</button>
+                            <button class="watch-ads-btn">Watch Ads (10)</button>
+                        </div>
+                    </div>
+                    <div class="note-item">
+                        <div class="note-info">
+                            <h3>Class 12 Chemistry - Electrochemistry</h3>
+                            <p>Detailed explanations, numerical problems, and important formulas</p>
+                        </div>
+                        <div class="note-price">₹200</div>
+                        <div class="note-actions">
+                            <button class="buy-btn">Buy Now</button>
+                            <button class="watch-ads-btn">Watch Ads (10)</button>
+                        </div>
+                    </div>
+                    <div class="note-item">
+                        <div class="note-info">
+                            <h3>BSc Biology - Cell Biology</h3>
+                            <p>Advanced concepts with illustrations, diagrams, and research references</p>
+                        </div>
+                        <div class="note-price">₹200</div>
+                        <div class="note-actions">
+                            <button class="buy-btn">Buy Now</button>
+                            <button class="watch-ads-btn">Watch Ads (10)</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Classes Section -->
+            <section class="live-classes" id="live-classes">
+                <div class="section-title">
+                    <h2>Live Class Schedule</h2>
+                    <p>Interactive live sessions with our expert faculty</p>
+                </div>
+                <div class="live-classes-container">
+                    <table class="class-schedule">
+                        <thead>
+                            <tr>
+                                <th>Date & Time</th>
+                                <th>Subject</th>
+                                <th>Topic</th>
+                                <th>Teacher</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mon, 10:00 AM</td>
+                                <td>Physics</td>
+                                <td>Optics - Wave Nature of Light</td>
+                                <td>Golu Sir</td>
+                                <td><button class="join-btn">Join</button></td>
+                            </tr>
+                            <tr>
+                                <td>Tue, 11:00 AM</td>
+                                <td>Chemistry</td>
+                                <td>Chemical Kinetics</td>
+                                <td>Mohit Sir</td>
+                                <td><button class="join-btn">Join</button></td>
+                            </tr>
+                            <tr>
+                                <td>Wed, 2:00 PM</td>
+                                <td>Biology</td>
+                                <td>Genetics - Mendelian Inheritance</td>
+                                <td>Mohit Sir</td>
+                                <td><button class="join-btn">Join</button></td>
+                            </tr>
+                            <tr>
+                                <td>Thu, 10:00 AM</td>
+                                <td>Physics</td>
+                                <td>Electrostatics</td>
+                                <td>Golu Sir</td>
+                                <td><button class="join-btn">Join</button></td>
+                            </tr>
+                            <tr>
+                                <td>Fri, 11:00 AM</td>
+                                <td>Chemistry</td>
+                                <td>Coordination Compounds</td>
+                                <td>Mohit Sir</td>
+                                <td><button class="join-btn">Join</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Review Section with Polygon Clip -->
+            <section class="review">
+                <div class="review-container">
+                    <h2>Share Your Experience</h2>
+                    <form class="review-form">
+                        <textarea placeholder="How was your experience with MG Classes? What did you like most? Any suggestions for improvement?" required></textarea>
+                        <button type="submit">Submit Review</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer>
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h3>MG Classes</h3>
+                        <p>Premium education for 9-12 and BSc students in Physics, Chemistry, and Biology. Founded by Mohit Sir (Chemistry & Biology) and Golu Sir (Physics).</p>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
+                            <li><a href="#subjects"><i class="fas fa-chevron-right"></i> Subjects</a></li>
+                            <li><a href="#notes"><i class="fas fa-chevron-right"></i> Notes</a></li>
+                            <li><a href="#live-classes"><i class="fas fa-chevron-right"></i> Live Classes</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h3>Contact Us</h3>
+                        <div class="contact-info">
+                            <p><i class="fas fa-map-marker-alt"></i> Niwari, Madhya Pradesh<br>Rai Colony, Behind Police Station</p>
+                            <p><i class="fas fa-phone-alt"></i> 6387618629</p>
+                            <p><i class="fas fa-envelope"></i> contact@mgclasses.com</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2023 MG Classes. All Rights Reserved.</p>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Enhanced Loading animation
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loader').style.display = 'none';
+                document.querySelector('.app-content').style.display = 'block';
+                createParticles();
+            }, 4000);
+        });
+        
+        // Create floating particles for background
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 2px and 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Random animation
+                const duration = Math.random() * 20 + 10;
+                particle.style.animation = `float ${duration}s linear infinite`;
+                
+                // Add to container
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Add floating animation for particles
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0% {
+                    transform: translateY(0) translateX(0);
+                    opacity: 0;
+                }
+                10% {
+                    opacity: 1;
+                }
+                90% {
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(-100vh) translateX(20px);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Check if user is logged in
+        let currentUser = null;
+        
+        // Login/Signup Modal Functionality
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const authModal = document.getElementById('auth-modal');
+        const closeAuthModal = document.getElementById('close-auth-modal');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const loginTab = document.getElementById('login-tab');
+        const signupTab = document.getElementById('signup-tab');
+        const switchToSignup = document.getElementById('switch-to-signup');
+        const switchToLogin = document.getElementById('switch-to-login');
+        const authModalTitle = document.getElementById('auth-modal-title');
+        const authModalSubtitle = document.getElementById('auth-modal-subtitle');
+        const userProfile = document.getElementById('user-profile');
+        const userAvatar = document.getElementById('user-avatar');
+        const userName = document.getElementById('user-name');
+        const avatarInitials = document.getElementById('avatar-initials');
+        const logoutBtn = document.getElementById('logout-btn');
+        
+        // Show login modal
+        loginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLoginForm();
+            authModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Show signup modal
+        signupBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            showSignupForm();
+            authModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Close modal
+        closeAuthModal.addEventListener('click', function() {
+            authModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Switch to signup form
+        switchToSignup.addEventListener('click', function(e) {
+            e.preventDefault();
+            showSignupForm();
+        });
+        
+        // Switch to login form
+        switchToLogin.addEventListener('click', function(e) {
+            e.preventDefault();
+            showLoginForm();
+        });
+        
+        // Login tab click
+        loginTab.addEventListener('click', function() {
+            showLoginForm();
+        });
+        
+        // Signup tab click
+        signupTab.addEventListener('click', function() {
+            showSignupForm();
+        });
+        
+        function showLoginForm() {
+            loginTab.classList.add('active');
+            signupTab.classList.remove('active');
+            loginForm.classList.add('active');
+            signupForm.classList.remove('active');
+            authModalTitle.textContent = 'Welcome Back';
+            authModalSubtitle.textContent = 'Login to access your account';
+        }
+        
+        function showSignupForm() {
+            loginTab.classList.remove('active');
+            signupTab.classList.add('active');
+            loginForm.classList.remove('active');
+            signupForm.classList.add('active');
+            authModalTitle.textContent = 'Create Account';
+            authModalSubtitle.textContent = 'Join MG Classes today';
+        }
+        
+        // Login form submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            
+            // Simple validation
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Mock login (in a real app, this would be an API call)
+            currentUser = {
+                name: 'Test User',
+                email: email,
+                phone: '9876543210',
+                class: '12'
+            };
+            
+            // Update UI
+            updateUserProfile(currentUser);
+            
+            // Hide login/signup buttons, show profile
+            document.querySelector('.login-btn').style.display = 'none';
+            document.querySelector('.signup-btn').style.display = 'none';
+            userProfile.style.display = 'flex';
+            
+            // Close modal
+            authModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // Signup form submission
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const phone = document.getElementById('signup-phone').value;
+            const userClass = document.getElementById('signup-class').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+            
+            // Validation
+            if (!name || !email || !phone || !userClass || !password || !confirmPassword) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+            
+            // Mock signup (in a real app, this would be an API call)
+            currentUser = {
+                name: name,
+                email: email,
+                phone: phone,
+                class: userClass
+            };
+            
+            // Update UI
+            updateUserProfile(currentUser);
+            
+            // Hide login/signup buttons, show profile
+            document.querySelector('.login-btn').style.display = 'none';
+            document.querySelector('.signup-btn').style.display = 'none';
+            userProfile.style.display = 'flex';
+            
+            // Close modal
+            authModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Reset form
+            this.reset();
+            
+            // Show welcome message
+            alert(`Welcome to MG Classes, ${name}!`);
+        });
+        
+        // Logout
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            currentUser = null;
+            
+            // Reset UI
+            document.querySelector('.login-btn').style.display = 'inline-block';
+            document.querySelector('.signup-btn').style.display = 'inline-block';
+            userProfile.style.display = 'none';
+        });
+        
+        // Update user profile in header
+        function updateUserProfile(user) {
+            userName.textContent = user.name;
+            
+            // Generate initials for avatar
+            const names = user.name.split(' ');
+            let initials = names[0].substring(0, 1).toUpperCase();
+            if (names.length > 1) {
+                initials += names[names.length - 1].substring(0, 1).toUpperCase();
+            }
+            avatarInitials.textContent = initials;
+            
+            // Set random avatar color
+            const colors = ['#7B2CBF', '#9D4EDD', '#00B4D8', '#FF9E00', '#38B000'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            userAvatar.style.background = `linear-gradient(135deg, ${randomColor}, ${colors[(colors.indexOf(randomColor) + 1) % colors.length]})`;
+        }
+        
+        // Admin Panel Functionality
+        const adminLoginBtn = document.getElementById('admin-login-btn');
+        const adminLoginModal = document.getElementById('admin-login-modal');
+        const closeAdminModal = document.getElementById('close-admin-modal');
+        const adminLoginSubmit = document.getElementById('admin-login-submit');
+        const adminDashboard = document.getElementById('admin-dashboard');
+        const adminLogout = document.getElementById('admin-logout');
+        const studentView = document.getElementById('student-view');
+        
+        adminLoginBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            adminLoginModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        });
+        
+        closeAdminModal.addEventListener('click', function() {
+            adminLoginModal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+        
+        adminLoginSubmit.addEventListener('click', function() {
+            const password = document.getElementById('admin-password').value;
+            const correctPassword = "GMmohit@golu629.pss128pass";
+            
+            if (password === correctPassword) {
+                adminLoginModal.style.display = 'none';
+                studentView.style.display = 'none';
+                adminDashboard.style.display = 'block';
+                document.getElementById('admin-password').value = '';
+                document.body.style.overflow = 'auto';
+            } else {
+                alert('Incorrect password. Please try again.');
+            }
+        });
+        
+        adminLogout.addEventListener('click', function() {
+            adminDashboard.style.display = 'none';
+            studentView.style.display = 'block';
+        });
+        
+        // Show admin sections
+        function showAdminSection(sectionId) {
+            // Hide all sections first
+            document.querySelectorAll('.admin-content').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).style.display = 'block';
+        }
+        
+        // Admin form submissions
+        document.getElementById('notes-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Note uploaded successfully!');
+            this.reset();
+        });
+        
+        document.getElementById('class-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Class scheduled successfully!');
+            this.reset();
+        });
+        
+        document.getElementById('video-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Video uploaded successfully!');
+            this.reset();
+        });
+        
+        document.getElementById('settings-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            
+            if (newPassword !== confirmPassword) {
+                alert('New passwords do not match!');
+                return;
+            }
+            
+            alert('Settings saved successfully! An OTP has been sent to 6387618629 for password change confirmation.');
+            this.reset();
+            document.getElementById('otp-mobile').value = '6387618629';
+            document.getElementById('default-price').value = '200';
+            document.getElementById('ads-required').value = '10';
+        });
+        
+        // Watch ads button functionality
+        document.querySelectorAll('.watch-ads-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                if (!currentUser) {
+                    alert('Please login to access notes by watching ads');
+                    showLoginForm();
+                    authModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    return;
+                }
+                
+                let adsWatched = 0;
+                const originalText = button.textContent;
+                const originalBg = button.style.background;
+                
+                button.disabled = true;
+                button.style.background = 'linear-gradient(135deg, #555, #333)';
+                
+                const adsInterval = setInterval(() => {
+                    adsWatched++;
+                    button.textContent = `Watching Ads (${adsWatched}/10)`;
+                    
+                    if (adsWatched === 10) {
+                        clearInterval(adsInterval);
+                        button.textContent = 'Access Granted!';
+                        button.style.background = 'linear-gradient(135deg, var(--success), #00a884)';
+                        
+                        // After 2 seconds, reset the button
+                        setTimeout(() => {
+                            button.textContent = originalText;
+                            button.style.background = originalBg;
+                            button.disabled = false;
+                        }, 2000);
+                    }
+                }, 1000);
+            });
+        });
+        
+        // Buy button functionality
+        document.querySelectorAll('.buy-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                if (!currentUser) {
+                    alert('Please login to purchase notes');
+                    showLoginForm();
+                    authModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    return;
+                }
+                
+                alert('Thank you for your purchase! The note has been added to your account.');
+            });
+        });
+        
+        // Join class button functionality
+        document.querySelectorAll('.join-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                if (!currentUser) {
+                    alert('Please login to join live classes');
+                    showLoginForm();
+                    authModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    return;
+                }
+                
+                alert('Redirecting you to the live class...');
+            });
+        });
+        
+        // Review form submission
+        document.querySelector('.review-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!currentUser) {
+                alert('Please login to submit a review');
+                showLoginForm();
+                authModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                return;
+            }
+            
+            alert('Thank you for your valuable feedback!');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
